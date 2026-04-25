@@ -58,3 +58,11 @@ func CreateRecord(c *gin.Context) {
 	}
 	c.JSON(http.StatusCreated, record)
 }
+
+func GetPlayRanking(c *gin.Context) {
+	ranking := storage.GetPlayRanking()
+	if ranking == nil {
+		ranking = []models.PlayRankItem{}
+	}
+	c.JSON(http.StatusOK, ranking)
+}

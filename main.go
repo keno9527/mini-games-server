@@ -54,6 +54,7 @@ func main() {
 		api.GET("/users/:id/stats", handlers.GetUserStats)
 		api.GET("/users/:id/records", handlers.GetRecords)
 		api.POST("/users/:id/records", handlers.CreateRecord)
+		api.GET("/records/ranking", handlers.GetPlayRanking)
 	}
 
 	log.Println("Server running at http://localhost:8080")

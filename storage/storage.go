@@ -291,3 +291,40 @@ func getUserUnlocked(id string) (models.User, bool) {
 	}
 	return models.User{}, false
 }
+
+func GetPlayRanking() []models.PlayRankItem {
+	mu.RLock()
+	defer mu.RUnlock()
+
+	countMap := map[string]int{}
+	for _, r := range records {
+		countMap[r.GameID]++
+	}
+
+	var result []models.PlayRankItem
+	for gid, cnt := range countMap {
+		name := gid
+		for _, g := range games {
+			if g.ID == gid {
+				name = g.Name
+				break
+			}
+		}
+		result = append(result, models.PlayRankItem{
+			GameID:    gid,
+			GameName:  name,
+			PlayCount: cnt,
+		})
+	}
+
+	// 按 PlayCount 降序排序
+	for i := 0; i < len(result); i++ {
+		for j := i + 1; j < len(result); j++ {
+			if result[j].PlayCount > result[i].PlayCount {
+				result[i], result[j] = result[j], result[i]
+			}
+		}
+	}
+
+	return result
+}

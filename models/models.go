@@ -44,3 +44,9 @@ type GameStat struct {
 	BestScore int    `json:"bestScore"`
 	TotalTime int    `json:"totalTime"`
 }
+
+type PlayRankItem struct {
+	GameID    string `json:"gameId"`
+	GameName  string `json:"gameName"`
+	PlayCount int    `json:"playCount"`
+}
