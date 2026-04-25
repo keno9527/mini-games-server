@@ -1,0 +1,17 @@
+# Build binary
+server-go
+*.exe
+
+# Logs
+log/
+
+# Runtime data
+data/
+
+# Editor directories and files
+.vscode/
+.idea
+.DS_Store
+
+# AI / Tools
+.trae/
