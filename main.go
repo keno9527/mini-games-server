@@ -37,7 +37,7 @@ func main() {
 	})
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:5173", "http://localhost:3000"},
+		AllowOrigins:     []string{"http://localhost:5173", "http://localhost:5183", "http://localhost:3000"},
 		AllowMethods:     []string{"GET", "POST", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type"},
 		AllowCredentials: false,
@@ -57,8 +57,12 @@ func main() {
 		api.GET("/records/ranking", handlers.GetPlayRanking)
 	}
 
-	log.Println("Server running at http://localhost:8080")
-	if err := r.Run(":8080"); err != nil {
+	addr := os.Getenv("PORT")
+	if addr == "" {
+		addr = "8080"
+	}
+	log.Printf("Server running at http://localhost:%s", addr)
+	if err := r.Run(":" + addr); err != nil {
 		log.Fatalf("failed to start server: %v", err)
 	}
 }
